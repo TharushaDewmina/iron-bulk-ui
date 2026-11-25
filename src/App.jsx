@@ -1,5 +1,6 @@
 import { AuthProvider, useAuth } from './context/AuthContext';
 import AuthPage from './components/AuthPage';
+import MacroDashboard from './components/MacroDashboard';
 import { Dumbbell, LogOut } from 'lucide-react';
 
 function AppShell() {
@@ -33,12 +34,7 @@ function AppShell() {
       </nav>
 
       <main className="max-w-5xl mx-auto p-6">
-        <div className="p-6 rounded-2xl bg-zinc-900 border border-zinc-800">
-          <h2 className="text-lg font-semibold text-white">JWT Session Verified</h2>
-          <p className="text-sm text-zinc-400 mt-1">
-            Full-stack handshake complete. Ready for Day 8 (Daily Macro Dashboard) and Day 9 (Workout Volume Tracker).
-          </p>
-        </div>
+        <MacroDashboard />
       </main>
     </div>
   );
