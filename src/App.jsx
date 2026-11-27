@@ -3,7 +3,8 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import AuthPage from './components/AuthPage';
 import MacroDashboard from './components/MacroDashboard';
 import WorkoutTracker from './components/WorkoutTracker';
-import { Dumbbell, Flame, LogOut } from 'lucide-react';
+import BodyWeightTracker from './components/BodyWeightTracker';
+import { Dumbbell, Flame, Scale, LogOut } from 'lucide-react';
 
 function AppShell() {
   const { user, isAuthenticated, logout } = useAuth();
@@ -46,6 +47,17 @@ function AppShell() {
               <Dumbbell className="w-3.5 h-3.5" />
               Workouts
             </button>
+            <button
+              onClick={() => setActiveTab('weight')}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition cursor-pointer ${
+                activeTab === 'weight'
+                  ? 'bg-amber-500 text-zinc-950 font-semibold'
+                  : 'text-zinc-400 hover:text-white'
+              }`}
+            >
+              <Scale className="w-3.5 h-3.5" />
+              Weight
+            </button>
           </div>
         </div>
 
@@ -66,7 +78,9 @@ function AppShell() {
       </nav>
 
       <main className="max-w-5xl mx-auto p-6">
-        {activeTab === 'macros' ? <MacroDashboard /> : <WorkoutTracker />}
+        {activeTab === 'macros' && <MacroDashboard />}
+        {activeTab === 'workouts' && <WorkoutTracker />}
+        {activeTab === 'weight' && <BodyWeightTracker />}
       </main>
     </div>
   );
