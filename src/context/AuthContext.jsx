@@ -18,6 +18,19 @@ export function AuthProvider({ children }) {
     setUser(userData);
   };
 
+  const updateUserTargets = (dailyCalorieTarget, dailyProteinTarget) => {
+    setUser((prev) => {
+      if (!prev) return null;
+      const updated = {
+        ...prev,
+        dailyCalorieTarget,
+        dailyProteinTarget,
+      };
+      localStorage.setItem('ironbulk_user', JSON.stringify(updated));
+      return updated;
+    });
+  };
+
   const login = async (username, password) => {
     const { data } = await axiosClient.post('/auth/login', { username, password });
     saveSession(data);
@@ -37,7 +50,9 @@ export function AuthProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, register, logout, isAuthenticated: !!user }}>
+    <AuthContext.Provider
+      value={{ user, login, register, logout, updateUserTargets, isAuthenticated: !!user }}
+    >
       {children}
     </AuthContext.Provider>
   );

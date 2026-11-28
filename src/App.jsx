@@ -4,7 +4,8 @@ import AuthPage from './components/AuthPage';
 import MacroDashboard from './components/MacroDashboard';
 import WorkoutTracker from './components/WorkoutTracker';
 import BodyWeightTracker from './components/BodyWeightTracker';
-import { Dumbbell, Flame, Scale, LogOut } from 'lucide-react';
+import AthleteProfile from './components/AthleteProfile';
+import { Dumbbell, Flame, Scale, User, LogOut } from 'lucide-react';
 
 function AppShell() {
   const { user, isAuthenticated, logout } = useAuth();
@@ -58,15 +59,30 @@ function AppShell() {
               <Scale className="w-3.5 h-3.5" />
               Weight
             </button>
+            <button
+              onClick={() => setActiveTab('profile')}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition cursor-pointer ${
+                activeTab === 'profile'
+                  ? 'bg-amber-500 text-zinc-950 font-semibold'
+                  : 'text-zinc-400 hover:text-white'
+              }`}
+            >
+              <User className="w-3.5 h-3.5" />
+              Targets
+            </button>
           </div>
         </div>
 
         <div className="flex items-center gap-4">
-          <span className="text-xs text-zinc-400 hidden md:inline">
+          <button
+            onClick={() => setActiveTab('profile')}
+            title="Edit daily targets"
+            className="text-xs text-zinc-400 hover:text-zinc-200 hidden md:inline transition cursor-pointer"
+          >
             Athlete: <strong className="text-white">{user.username}</strong> • Target:{' '}
             <strong className="text-amber-400">{user.dailyCalorieTarget} kcal</strong> /{' '}
             <strong className="text-amber-400">{user.dailyProteinTarget}g P</strong>
-          </span>
+          </button>
           <button
             onClick={logout}
             className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-300 transition cursor-pointer"
@@ -81,6 +97,7 @@ function AppShell() {
         {activeTab === 'macros' && <MacroDashboard />}
         {activeTab === 'workouts' && <WorkoutTracker />}
         {activeTab === 'weight' && <BodyWeightTracker />}
+        {activeTab === 'profile' && <AthleteProfile />}
       </main>
     </div>
   );
